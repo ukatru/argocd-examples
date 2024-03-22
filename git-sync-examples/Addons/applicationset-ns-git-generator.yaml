@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
-      name: "{{path[4]}}-{{path.basename}}"
+      name: "{{.path.basename}}"
     spec:
       project: management
       source:
@@ -32,7 +32,7 @@ spec:
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
-            - "$values/git-sync-examples/ClusterConfigs/ClusterAddons/namespace/{{path[4]}}/{{path.basename}}/values.yaml"
+            - "$values/git-sync-examples/ClusterConfigs/ClusterAddons/namespace/{{.path[4]}}/{{.path.basename}}/values.yaml"
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         ref: values
       syncPolicy:
