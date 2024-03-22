@@ -6,20 +6,20 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: 'git@github.com:ukatru/k8smgmt.git'
+        repoURL: 'https://github.com/ukatru/argocd-examples.git'
         revision: HEAD
         directories:
           # here it will read the paths under configs and the subpaths under the config paths
-          - path: ClusterConfigs/ClusterAddons/namespaces/*/*
+          - path: git-sync-examples/mgmt/*
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
-      name: "{{path[2]}}-{{path.basename}}"
+      name: "{{path.basename}}"
     spec:
       project: default
       source:
         path: HelmCharts/namespace
-        repoURL: 'git@github.com:ukatru/k8smgmt.git'
+        repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
             - "{{path.basename}}/values.yaml"
@@ -28,5 +28,5 @@ spec:
           prune: true
       destination:
         # specify different destinations
-        namespace: 'crossplane-system'
+        namespace: 'default'
         server: https://kubernetes.default.svc
