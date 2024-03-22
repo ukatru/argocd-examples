@@ -32,7 +32,7 @@ spec:
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
-            - "$values/git-sync-examples/ClusterConfigs/ClusterAddons/namespace/{{path.basename}}/values.yaml"
+            - "$values/git-sync-examples/ClusterConfigs/ClusterAddons/namespace/{{.path.basename}}/values.yaml"
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         ref: values
       syncPolicy:
