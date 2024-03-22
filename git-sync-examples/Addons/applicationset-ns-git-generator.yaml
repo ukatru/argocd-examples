@@ -13,7 +13,7 @@ spec:
               repoURL: 'https://github.com/ukatru/argocd-examples.git'
               revision: HEAD
               directories:
-                - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*
+                - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*/*
           # cluster generator, 'child' #2
           - list:
               elements:
