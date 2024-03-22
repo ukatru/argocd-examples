@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-helm-common-chart
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'git@github.com:ukatru/k8smgmt.git'
+        revision: HEAD
+        directories:
+          # here it will read the paths under configs and the subpaths under the config paths
+          - path: ClusterConfigs/ClusterAddons/namespaces/*/*
+  template:
+    metadata:
+      # you can use the path strings with / delimiter as variables
+      name: "{{path[2]}}-{{path.basename}}"
+    spec:
+      project: default
+      source:
+        path: HelmCharts/namespace
+        repoURL: 'git@github.com:ukatru/k8smgmt.git'
+        helm:
+          valueFiles:
+            - "{{path.basename}}/values.yaml"
+      syncPolicy:
+        automated:
+          prune: true
+      destination:
+        # specify different destinations
+        namespace: 'crossplane-system'
+        server: https://kubernetes.default.svc
