@@ -10,7 +10,7 @@ spec:
         revision: HEAD
         directories:
           # here it will read the paths under configs and the subpaths under the config paths
-          - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*
+          - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*/*
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
