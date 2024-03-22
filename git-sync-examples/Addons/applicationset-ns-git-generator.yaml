@@ -32,7 +32,7 @@ spec:
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
-            - "$values/{{.path.dirname}}/{{.path.basename}}/values.yaml"
+            - "{{.path.dirname}}/{{.path.basename}}/values.yaml"
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         ref: values
       syncPolicy:
