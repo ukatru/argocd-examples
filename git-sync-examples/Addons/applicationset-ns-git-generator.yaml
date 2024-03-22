@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
-      name: "{{path[2]}}-{{path.basename}}"
+      name: "{{path[4]}}-{{path.basename}}"
     spec:
       project: management
       source:
