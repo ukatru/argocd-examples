@@ -1,16 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-helm-common-chart
-  namespace: argocd
+  name: cluster-git
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: 'https://github.com/ukatru/argocd-examples.git'
-      revision: HEAD
-      directories:
-        # here it will read the paths under configs and the subpaths under the config paths
-        - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*/*
+    # matrix 'parent' generator
+    - matrix:
+        generators:
+          # git generator, 'child' #1
+          - git:
+              repoURL: 'https://github.com/ukatru/argocd-examples.git'
+              revision: HEAD
+              directories:
+                - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*/*
+          # cluster generator, 'child' #2
+          - list:
+              elements:
+              - cluster: mgmt
+                url: https://kubernetes.default.svc
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
@@ -30,4 +39,4 @@ spec:
           prune: true
       destination:
         # specify different destinations
-        server: https://kubernetes.default.svc
+        server: {{.url}}
