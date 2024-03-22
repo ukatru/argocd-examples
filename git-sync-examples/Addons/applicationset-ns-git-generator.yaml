@@ -4,8 +4,6 @@ metadata:
   name: demo-helm-common-chart
   namespace: argocd
 spec:
-  goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   generators:
     # matrix 'parent' generator
     - matrix:
@@ -15,16 +13,16 @@ spec:
               repoURL: 'https://github.com/ukatru/argocd-examples.git'
               revision: HEAD
               directories:
-                - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*/*
+                - path: git-sync-examples/ClusterConfigs/ClusterAddons/namespace/*
           # cluster generator, 'child' #2
-          - clusters:
-              selector:
-                matchLabels:
-                  eks-cluster-name: default
+          - list:
+              elements:
+              - cluster: mgmt
+                url: https://kubernetes.default.svc
   template:
     metadata:
       # you can use the path strings with / delimiter as variables
-      name: "{{.path.basename}}"
+      name: "{{ cluster }}-{{.path.basename}}"
     spec:
       project: management
       source:
@@ -32,7 +30,7 @@ spec:
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
-            - "{{.path.dirname}}/{{.path.basename}}/values.yaml"
+            - "$values/git-sync-examples/ClusterConfigs/ClusterAddons/namespace/{{ path[4] }}/{{.path.basename}}/values.yaml"
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         ref: values
       syncPolicy:
@@ -41,4 +39,4 @@ spec:
       destination:
         # specify different destinations
         namespace: default
-        server: '{{.server}}'
+        server: '{{ url }}'
