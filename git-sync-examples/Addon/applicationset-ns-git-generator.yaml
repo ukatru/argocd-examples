@@ -22,7 +22,7 @@ spec:
         repoURL: 'https://github.com/ukatru/argocd-examples.git'
         helm:
           valueFiles:
-            - "{{path.basename}}/values.yaml"
+            - "{{path[2]}}/{{path.basename}}/values.yaml"
       syncPolicy:
         automated:
           prune: true
