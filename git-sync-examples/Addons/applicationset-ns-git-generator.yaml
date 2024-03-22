@@ -39,5 +39,5 @@ spec:
           prune: true
       destination:
         # specify different destinations
-        namespace: {{path.basename}}
+        namespace: default
         server: '{{.server}}'
