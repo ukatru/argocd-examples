@@ -1,0 +1,29 @@
+dagster:
+  dagsterWebServer:
+    service:
+      port: 8080
+    readinessProbe:
+      httpGet:
+        port: 8080
+  postgresql:
+    persistence:
+      storageClass: docker-sc
+    postgresqlHost: dagster-postgresql-headless
+    
+  #dagster-user-deployment:
+  #  enabled: true
+  #  enableSubchart: true
+  #  deployments:
+  #    - name: "k8s-example-code-1"
+  #      image:
+  #        repository:
+  #        tag: latest
+  #        pullPolicy: Always
+  #      dagsterApiGrpcArgs:
+  #        - "--python-file"
+  #        - "/example_project/example_repo/repo.py"
+  #      port: 3030
+  #      envSecrets:
+  #        - name: dagster-aws-access-key-id
+  #        - name: dagster-aws-secret-access-key
+  #        
