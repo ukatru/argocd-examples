@@ -2,6 +2,7 @@ dagster:
   dagsterWebServer:
     service:
       port: 8080
+      type: NodePort
     readinessProbe:
       httpGet:
         port: 8080
