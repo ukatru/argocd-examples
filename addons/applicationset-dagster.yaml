@@ -39,7 +39,7 @@ spec:
             - $values/environments/{{.metadata.labels.environment}}/addons/{{.values.addonChart}}/values.yaml
             - $values/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
           values: |
-            AWSEksCluster: '{{ .metadata.annotations.aws_cluster_name }}'
+            k8sClusterName: '{{ .metadata.annotations.k8s_cluster_name }}'
         repoURL: '{{.metadata.annotations.addons_repo_url}}'
         path: 'charts/{{ .values.addonChart }}'
         targetRevision: '{{.metadata.annotations.addons_repo_revision}}'
