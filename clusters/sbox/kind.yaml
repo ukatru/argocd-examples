@@ -23,5 +23,5 @@ type: Opaque
 stringData:
   name: hub
   server: https://kubernetes.default.svc
-  data:
-    config: ewogICJ0bHNDbGllbnRDb25maWciOiB7CiAgICAiaW5zZWN1cmUiOiBmYWxzZQogIH0KfQo=
+data:
+  config: ewogICJ0bHNDbGllbnRDb25maWciOiB7CiAgICAiaW5zZWN1cmUiOiBmYWxzZQogIH0KfQo=
