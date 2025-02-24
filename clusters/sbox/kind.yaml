@@ -10,19 +10,15 @@ metadata:
     create_shared_project: "true"
     external_secrets: "true"
     external_dns: "false"
-    gloo_gateway: "true"
-    in_cluster: "true"
-    addon/team-apps-repo: "true"
+    gloo_gateway: "false"
+    in_cluster: "false"
   annotations:
-    k8s_cluster_name: k8s-docker-dekstop-secret
+    k8s_cluster_name: kind-cluster-control-plane
     addons_repo_url: https://github.com/ukatru/argocd-examples.git
     addons_repo_revision: HEAD
     argocd_project_name: hub
-  name: k8s-docker-dekstop-secret
+  name: kind-cluster-control-plane
   namespace: argocd
 type: Opaque
 stringData:
   name: hub
-  server: https://kubernetes.default.svc
-data:
-  config: ewogICJ0bHNDbGllbnRDb25maWciOiB7CiAgICAiaW5zZWN1cmUiOiBmYWxzZQogIH0KfQo=
