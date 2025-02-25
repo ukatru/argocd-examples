@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: dagster-applicationset
+  name: aws-ecr-oci-creds-applicationset
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
@@ -17,8 +17,8 @@ spec:
         generators:
           - clusters:
               values:
-                addonChart: dagster
-                namespace: dagster-system
+                addonChart: aws-ecr-oci-creds
+                namespace: argocd
               selector:
                 matchExpressions:
                   - key: in_cluster
@@ -39,7 +39,8 @@ spec:
             - $values/environments/{{.metadata.labels.environment}}/addons/{{.values.addonChart}}/values.yaml
             - $values/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
           values: |
-            k8sClusterName: '{{ .metadata.annotations.k8s_cluster_name }}'
+            awsRegion: '{{ .metadata.annotations.aws_region }}'
+            awsAccountID: '{{ .metadata.annotations.aws_account_id }}'
         repoURL: '{{.metadata.annotations.addons_repo_url}}'
         path: 'charts/{{ .values.addonChart }}'
         targetRevision: '{{.metadata.annotations.addons_repo_revision}}'
@@ -49,7 +50,7 @@ spec:
       syncPolicy:
         automated: {}
         syncOptions:
-          - CreateNamespace=true
+          - CreateNamespace=false
           - ApplyOutofSyncOnly=true
           - validate=false
           - HelmLint=false

@@ -8,7 +8,7 @@ metadata:
     enable_cluster_autoscaler: "false"
     enable_gloo: "false"
     create_shared_project: "true"
-    external_secrets: "true"
+    addon/external_secrets: "true"
     external_dns: "false"
     gloo_gateway: "false"
     in_cluster: "false"
