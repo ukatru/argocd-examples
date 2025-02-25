@@ -11,7 +11,7 @@ metadata:
     addon/external_secrets: "true"
     external_dns: "false"
     gloo_gateway: "false"
-    in_cluster: "false"
+    in_cluster: "true"
   annotations:
     k8s_cluster_name: kind-cluster-control-plane
     addons_repo_url: https://github.com/ukatru/argocd-examples.git
