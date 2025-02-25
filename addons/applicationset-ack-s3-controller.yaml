@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ack-iam-controller-applicationset
+  name: ack-s3-controller-applicationset
   namespace: argocd
 spec:
   goTemplate: true
