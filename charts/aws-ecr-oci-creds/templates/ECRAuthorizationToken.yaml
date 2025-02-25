@@ -1,58 +1,58 @@
-apiVersion: generators.external-secrets.io/v1alpha1
-kind: ECRAuthorizationToken
-metadata:
-  annotations:
-    meta.helm.sh/release-name: argocd-secrets
-    meta.helm.sh/release-namespace: argocd
-  labels:
-    app.kubernetes.io/component: ecrauthorizationtokens-ecr
-    app.kubernetes.io/instance: argocd-secrets
-    app.kubernetes.io/managed-by: argocd
-    app.kubernetes.io/version: none
-  name: argocd-secrets-ecr
-  namespace: argocd
-spec:
-  auth:
-    jwt:
-      serviceAccountRef:
-        name: argocd-server
-  region: {{ .Values.awsRegion }}
----
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  annotations:
-    meta.helm.sh/release-name: argocd-secrets
-    meta.helm.sh/release-namespace: argocd
-  labels:
-    app.kubernetes.io/component: externalsecrets-ecr-auth-token-external-secret
-    app.kubernetes.io/instance: argocd-secrets
-    app.kubernetes.io/managed-by: argocd
-    app.kubernetes.io/version: none
-  name: argocd-secrets-ecr-auth-token-external-secret
-  namespace: argocd
-spec:
-  dataFrom:
-    - sourceRef:
-        generatorRef:
-          apiVersion: generators.external-secrets.io/v1alpha1
-          kind: ECRAuthorizationToken
-          name: argocd-secrets-ecr
-  refreshInterval: 30m
-  target:
-    creationPolicy: Owner
-    deletionPolicy: Retain
-    name: argocd-ecr-helm-credentials
-    template:
-      data:
-        enableOCI: 'true'
-        name: ecr-oci
-        password: '{{ .password }}'
-        type: helm
-        url: "763104351884.dkr.ecr.us-west-2.amazonaws.com"
-        username: '{{ .username }}'
-      engineVersion: v2
-      mergePolicy: Replace
-      metadata:
-        labels:
-          argocd.argoproj.io/secret-type: repository
+#apiVersion: generators.external-secrets.io/v1alpha1
+#kind: ECRAuthorizationToken
+#metadata:
+#  annotations:
+#    meta.helm.sh/release-name: argocd-secrets
+#    meta.helm.sh/release-namespace: argocd
+#  labels:
+#    app.kubernetes.io/component: ecrauthorizationtokens-ecr
+#    app.kubernetes.io/instance: argocd-secrets
+#    app.kubernetes.io/managed-by: argocd
+#    app.kubernetes.io/version: none
+#  name: argocd-secrets-ecr
+#  namespace: argocd
+#spec:
+#  auth:
+#    jwt:
+#      serviceAccountRef:
+#        name: argocd-server
+#  region: {{ .Values.awsRegion }}
+#---
+#apiVersion: external-secrets.io/v1beta1
+#kind: ExternalSecret
+#metadata:
+#  annotations:
+#    meta.helm.sh/release-name: argocd-secrets
+#    meta.helm.sh/release-namespace: argocd
+#  labels:
+#    app.kubernetes.io/component: externalsecrets-ecr-auth-token-external-secret
+#    app.kubernetes.io/instance: argocd-secrets
+#    app.kubernetes.io/managed-by: argocd
+#    app.kubernetes.io/version: none
+#  name: argocd-secrets-ecr-auth-token-external-secret
+#  namespace: argocd
+#spec:
+#  dataFrom:
+#    - sourceRef:
+#        generatorRef:
+#          apiVersion: generators.external-secrets.io/v1alpha1
+#          kind: ECRAuthorizationToken
+#          name: argocd-secrets-ecr
+#  refreshInterval: 30m
+#  target:
+#    creationPolicy: Owner
+#    deletionPolicy: Retain
+#    name: argocd-ecr-helm-credentials
+#    template:
+#      data:
+#        enableOCI: 'true'
+#        name: ecr-oci
+#        password: '{{ .password }}'
+#        type: helm
+#        url: "763104351884.dkr.ecr.us-west-2.amazonaws.com"
+#        username: '{{ .username }}'
+#      engineVersion: v2
+#      mergePolicy: Replace
+#      metadata:
+#        labels:
+#          argocd.argoproj.io/secret-type: repository
