@@ -39,8 +39,7 @@ spec:
             - $values/environments/{{.metadata.labels.environment}}/addons/{{.values.addonChart}}/values.yaml
             - $values/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
           values: |
-            awsRegion: '{{ .metadata.annotations.aws_region }}'
-            awsAccountID: '{{ .metadata.annotations.aws_account_id }}'
+            awsRegion: 'us-west-2'
         repoURL: '{{.metadata.annotations.addons_repo_url}}'
         path: 'charts/{{ .values.addonChart }}'
         targetRevision: '{{.metadata.annotations.addons_repo_revision}}'
