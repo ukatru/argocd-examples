@@ -9,6 +9,7 @@ metadata:
     enable_gloo: "false"
     create_shared_project: "true"
     addon/external_secrets: "true"
+    addon/ack-iam-controller: "true"
     external_dns: "false"
     gloo_gateway: "false"
     in_cluster: "true"

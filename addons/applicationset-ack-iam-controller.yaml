@@ -20,7 +20,7 @@ spec:
                 addons_repo_revision: v1.3.18
               selector:
                 matchExpressions:
-                  - key: ack-iam-controller
+                  - key: addon/ack-iam-controller
                     operator: In
                     values: ['true']
           - clusters: {}
