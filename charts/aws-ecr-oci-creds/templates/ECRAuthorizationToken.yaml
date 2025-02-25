@@ -16,7 +16,7 @@ spec:
     jwt:
       serviceAccountRef:
         name: argocd-server
-  region: {{ .Valyes.awsRegion }}
+  region: {{ .Values.awsRegion }}
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
@@ -49,7 +49,7 @@ spec:
         name: ecr-oci
         password: '{{ .password }}'
         type: helm
-        url: {{.Values.a}}.dkr.ecr.eu-west-1.amazonaws.com
+        url: "763104351884.dkr.ecr.us-west-2.amazonaws.com"
         username: '{{ .username }}'
       engineVersion: v2
       mergePolicy: Replace

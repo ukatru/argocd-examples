@@ -23,7 +23,7 @@ spec:
                 matchExpressions:
                   - key: in_cluster
                     operator: In
-                    values: ['false']
+                    values: ['true']
           - clusters: {}
   template:
     metadata:
