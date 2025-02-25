@@ -40,6 +40,10 @@ spec:
           values: |
             aws:
               region: "us-west-2"
+              credentials:
+                secretName: "ack-credentials"   # The name of the secret you just created
+                secretKey: "credentials"        # The key in the secret where the file is stored
+                profile: "default"
         repoURL: https://github.com/aws-controllers-k8s/iam-controller
         path: "helm"
         targetRevision: '{{.values.addons_repo_revision}}'
