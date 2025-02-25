@@ -44,7 +44,7 @@ spec:
         path: "helm"
         targetRevision: '{{.values.addons_repo_revision}}'
       destination:
-        namespace: {{ .values.namespace }}
+        namespace: '{{ .values.namespace }}'
         name: '{{.name}}'
       syncPolicy:
         automated: {}
