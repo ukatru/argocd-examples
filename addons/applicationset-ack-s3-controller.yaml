@@ -38,6 +38,8 @@ spec:
             - $values/environments/{{.metadata.labels.environment}}/addons/{{.values.addonChart}}/values.yaml
             - $values/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
           values: |
+            deployment:
+              replicas: 0
             aws:
               region: "us-west-2"
               credentials:
