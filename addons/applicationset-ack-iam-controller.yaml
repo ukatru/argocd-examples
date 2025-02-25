@@ -1,0 +1,53 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ack-iam-controller-applicationset
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - merge:
+        mergeKeys: [server]
+        generators:
+          - clusters:
+              values:
+                addonChart: ack-iam-controller
+                namespace: ack-system
+                addons_repo_revision: v1.3.18
+              selector:
+                matchExpressions:
+                  - key: ack-iam-controller
+                    operator: In
+                    values: ['true']
+          - clusters: {}
+  template:
+    metadata:
+      name: '{{.values.addonChart }}-{{.name}}-{{.metadata.labels.environment}}'
+    spec:
+      project: '{{.metadata.annotations.argocd_project_name}}'
+      source:
+        helm:
+          releaseName: '{{.values.addonChart}}'
+          ignoreMissingValueFiles: true
+          valueFiles:
+            - $values/environments/common/addons/{{.values.addonChart}}/values.yaml
+            - $values/environments/{{.metadata.labels.environment}}/addons/{{.values.addonChart}}/values.yaml
+            - $values/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
+          values: |
+            aws:
+              region: "us-west-2"
+        repoURL: https://github.com/aws-controllers-k8s/iam-controller
+        path: "helm"
+        targetRevision: '{{.values.addons_repo_revision}}'
+      destination:
+        namespace: {{ .values.namespace }}
+        name: '{{.name}}'
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutofSyncOnly=true
